@@ -11,9 +11,3 @@ terraform {
   }
 }
 
-provider "helm" {
-  # Configuration options
-  kubernetes = {
-    config_path = "~/.kube/config"
-  }
-}
