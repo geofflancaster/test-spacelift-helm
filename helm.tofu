@@ -30,14 +30,3 @@ resource "helm_release" "opencost" {
   atomic = true
   wait   = true
 }
-
-resource "helm_release" "kubecost" {
-  name             = "kubecost"
-  repository       = "https://kubecost.github.io/cost-analyzer/"
-  chart            = "cost-analyzer"
-  namespace        = "kubecost"
-  create_namespace = true
-
-  atomic = true
-  wait   = true
-}
