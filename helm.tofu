@@ -1,35 +1,35 @@
-resource "helm_release" "argo_workflows" {
-  name             = "argo-workflows"
-  repository       = "https://argoproj.github.io/argo-helm"
-  chart            = "argo-workflows"
-  create_namespace = true
-  namespace        = "argocd"
+# resource "helm_release" "argo_workflows" {
+#   name             = "argo-workflows"
+#   repository       = "https://argoproj.github.io/argo-helm"
+#   chart            = "argo-workflows"
+#   create_namespace = true
+#   namespace        = "argocd"
 
-  set = [
-    {
-      name  = "crds.install"
-      value = true
-    },
-    {
-      name  = "crds.keep"
-      value = false
-    }
-  ]
+#   set = [
+#     {
+#       name  = "crds.install"
+#       value = true
+#     },
+#     {
+#       name  = "crds.keep"
+#       value = false
+#     }
+#   ]
 
-  atomic = true
-  wait   = true
-}
+#   atomic = true
+#   wait   = true
+# }
 
-resource "helm_release" "opencost" {
-  name             = "opencost"
-  repository       = "https://opencost.github.io/opencost-helm-chart"
-  chart            = "opencost"
-  namespace        = "opencost"
-  create_namespace = true
+# resource "helm_release" "opencost" {
+#   name             = "opencost"
+#   repository       = "https://opencost.github.io/opencost-helm-chart"
+#   chart            = "opencost"
+#   namespace        = "opencost"
+#   create_namespace = true
 
-  atomic = true
-  wait   = true
-}
+#   atomic = true
+#   wait   = true
+# }
 
 # resource "helm_release" "pingdirectory" {
 #   name             = "pingdirectory"
@@ -58,11 +58,12 @@ resource "helm_release" "opencost" {
 #   ]
 # }
 
-resource "helm_release" "httpbin" {
-  name             = "httpbin"
-  repository       = "https://estahn.github.io/charts"
-  chart            = "httpbingo"
-  namespace        = "httpbin"
+resource "helm_release" "nginx" {
+  name             = "nginx"
+  repository       = "oci://registry-1.docker.io/bitnamicharts"
+  chart            = "nginx"
+  namespace        = "geoff-test"
+  version          = "19.0.2"
   create_namespace = true
 
   atomic = true
@@ -71,7 +72,23 @@ resource "helm_release" "httpbin" {
   set = [
     {
       name  = "replicaCount"
-      value = var.httpbin_pod_count
+      value = var.nginx_pod_count
+      }, {
+      name  = "cloneStaticSiteFromGit.enabled"
+      value = true
+      }, {
+      name  = "cloneStaticSiteFromGit.repository"
+      value = "https://github.com/mdn/beginner-html-site-styled.git"
+      }, {
+      name  = "cloneStaticSiteFromGit.branch"
+      value = "master"
+      }, 
+      {
+      name  = "extraEnvVars"
+      value = <<EOT
+- name: LOG_LEVEL
+  value: ${var.nginx_log_level}
+        EOT
     }
   ]
 }

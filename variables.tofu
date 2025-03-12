@@ -11,7 +11,12 @@ variable "env" {
   type = string
 }
 
-variable "httpbin_pod_count" {
+variable "nginx_pod_count" {
   type = number
   default = 1
+}
+
+variable "nginx_log_level" {
+    type = string
+    default = "info"
 }
