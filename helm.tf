@@ -67,4 +67,5 @@ resource "helm_release" "pingdirectory" {
         value = var.ssh_known_hosts
     }
   ]
+  timeout = 600
 }
