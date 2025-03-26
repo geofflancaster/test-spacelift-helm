@@ -1,4 +1,5 @@
 resource "kubernetes_manifest" "priorityclass" {
+    depends_on = [ helm_release.karpenter ]
     manifest = {
         apiVersion = "scheduling.k8s.io/v1"
         kind       = "PriorityClass"
