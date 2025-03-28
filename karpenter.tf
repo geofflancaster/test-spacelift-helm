@@ -18,10 +18,6 @@ resource "helm_release" "karpenter" {
             name = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
             value = data.aws_iam_role.karpenter_controller_role.arn
         },
-        {
-            name = "dnsPolicy"
-            value = "ClusterFirst"
-        }
     ]
 
     wait = true
