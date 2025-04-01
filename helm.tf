@@ -14,7 +14,7 @@ resource "helm_release" "pingdirectory" {
   name             = "pingdirectory"
   repository       = "oci://705370621539.dkr.ecr.us-west-2.amazonaws.com/dev"
   chart            = "p1as-pingdirectory"
-  version          = "v2.0-PDO-8162"
+  version          = "v2.1-calvin-pd-test-scim-hotfix-image"
   namespace        = "default"
   create_namespace = true
 
